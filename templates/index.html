@@ -4,49 +4,22 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Olá, {% if name %}{{ name }} {% endif %}{% if last_name %}{{ last_name }}{% else %}desconhecido{% endif %}!</h1>
-    <h3>A sua instituição de Ensino é: {{ instituicao }}</h3>
-    <h3>Está cursando a Disciplina de: {{ disciplina }}</h3>
-    <br>
-    <h3>IP do computador remoto: {{ request.remote_addr }}</h3>
-    <h3>Host da aplicação: {{ request.host }}</h3>
-    <br>
+    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    {% if not known %}
+    <p>Pleased to meet you!</p>
+    {% else %}
+    <p>Happy to see you again!</p>
+    {% endif %}
 </div>
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
 
 <form method="POST" action="/">
     {{ form.hidden_tag() }}
-    
+
     <div class="form-group">
-        {{ form.name.label }} 
+        {{ form.name.label }}
         {{ form.name(class="form-control") }}
     </div>
-    
-    <div class="form-group">
-        {{ form.last_name.label }} 
-        {{ form.last_name(class="form-control") }}
-    </div>
-    
-    <div class="form-group">
-        {{ form.instituicao.label }} 
-        {{ form.instituicao(class="form-control") }}
-    </div>
-    
-    <div class="form-group">
-        {{ form.disciplina.label }} 
-        {{ form.disciplina(class="form-control") }}
-    </div>
-    
+
     <div class="form-group">
         {{ form.submit(class="btn btn-primary") }}
     </div>
@@ -55,3 +28,5 @@
 <p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
 <p>That was {{ moment(current_time).fromNow(refresh=True) }}.</p>
 {% endblock %}
+
+

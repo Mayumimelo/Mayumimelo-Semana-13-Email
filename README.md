@@ -1,2 +1,2 @@
-# Semana 7 - Banco de Dados
+# Semana 10 - Envio de E-mail
 

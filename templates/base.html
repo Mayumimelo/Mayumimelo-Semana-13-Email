@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Flasky</a>
+            <a class="navbar-brand" href="/">Flask - Email</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -31,12 +31,16 @@
 
 {% block content %}
 <div class="container">
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{ message }}
     </div>
     {% endfor %}
+    {% endif %}
+    {% endwith %}
 
     {% block page_content %}{% endblock %}
 </div>
@@ -44,5 +48,5 @@
 
 {% block scripts %}
 {{ super() }}
-{{ moment.include_moment() }}
+<script src="https://cdn.jsdelivr.net/npm/moment/min/moment.min.js"></script>
 {% endblock %}

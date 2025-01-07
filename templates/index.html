@@ -5,11 +5,7 @@
 {% block page_content %}
 <div class="page-header">
     <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
-    {% if not known %}
-    <p>Pleased to meet you!</p>
-    {% else %}
-    <p>Happy to see you again!</p>
-    {% endif %}
+    <p>The local date and time is {{ current_time.strftime('%Y-%m-%d %H:%M:%S') }}.</p>
 </div>
 
 <form method="POST" action="/">
@@ -21,17 +17,21 @@
     </div>
 
     <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class="form-control") }}
+    </div>
+
+    <div class="form-group">
         {{ form.submit(class="btn btn-primary") }}
     </div>
 </form>
-
-<p>The local date and time is {{ current_time.strftime('%Y-%m-%d %H:%M:%S') }}.</p>
 
 <h2>Usuários</h2>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Nome</th>
+            <th>E-mail</th>
             <th>Função</th>
         </tr>
     </thead>
@@ -39,6 +39,7 @@
         {% for user in users %}
         <tr>
             <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
         </tr>
         {% endfor %}
